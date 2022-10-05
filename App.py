@@ -10,7 +10,7 @@ from Function.function import clean
 from Function.app_bis import modelbuild
 from Function.app_bis import make_prediction
 
-#ajout du css
+# ajout du css
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
@@ -54,7 +54,8 @@ with st.sidebar:
     # change the background color of the sidebar
 
     st.sidebar.image('Images/logo_localy-removebg-preview.png', width=200)
-    st.markdown("# Estimez votre loyer à Lyon")
+    st.markdown('<h2 style="color: black;">Estimez votre loyer à Lyon</h2>',
+                unsafe_allow_html=True)
 
     zone = st.selectbox(
         'Arrondissement',

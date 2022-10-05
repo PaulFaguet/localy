@@ -1,0 +1,59 @@
+body{
+    background-color: white;
+}
+
+/*SLOGAN*/
+.css-zt5igj.e16nr0p32 {
+    float: left;
+	position: absolute; /* postulat de départ */
+	top: 20%; left: 50%; /* à 50%/50% du parent référent */
+	transform: translate(-50%, -50%); /* décalage de 50% de sa propre taille */
+}
+
+/*SIDEBAR*/
+.css-hxt7ib.e1fqkh3o4 {
+    background-color: #ffffff;
+    color: red;
+}
+
+/*icone*/
+.e1fb0mya1.css-fblp2m.ex0cdmw0 {
+    color: red;
+}
+
+
+.css-k3w14i.effi0qh3 {
+color: black;
+}
+
+/*appartement et maison*/
+.st-b3.st-d7.st-d8.st-d9.st-d5.st-da {
+ color: white;
+}
+
+/*appartement et maison*/
+.st-dp.st-dw.st-bq.st-ae.st-af.st-ag.st-ah.st-ai.st-aj.st-bd.st-dx {
+    color: black;
+}
+
+/*bouton estimer*/
+.css-16u8z0w.edgvbvh9 {
+background-color: black;
+color: white;
+width: 100px;
+}
+
+/*sliderbar surface 20*/
+.css-1inwz65.e88czh80 {
+color: black;
+}
+
+/*sliderbar surface 20 et 164*/
+.css-1inwz65.e88czh80 {
+color: black;
+}
+
+/*MAP*/
+#view-default-view {
+    width: 100%;
+}

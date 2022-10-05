@@ -10,6 +10,9 @@ from Function.function import clean
 from Function.app_bis import modelbuild
 from Function.app_bis import make_prediction
 
+#ajout du css
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 df = obtain_data()
 df = clean(df)

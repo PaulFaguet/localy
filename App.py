@@ -1,11 +1,8 @@
 import pickle
-import plotly.express as px
 import streamlit as st
 import pandas as pd
 import numpy as np
 import math
-import streamlit.components.v1 as components
-import json
 
 from Data.datasets import obtain_data
 from Function.function import clean

@@ -7,8 +7,8 @@ import json
 
 from Data.datasets import obtain_data
 from Function.function import clean
-from Function.app import modelbuild
-from Function.app import make_prediction
+from Function.app_bis import modelbuild
+from Function.app_bis import make_prediction
 
 
 df = obtain_data()

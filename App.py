@@ -3,7 +3,7 @@ from pydoc import describe
 import streamlit as st
 import pandas as pd
 import numpy as np
-import json
+import math
 
 from Data.datasets import obtain_data
 from Function.function import clean
@@ -25,8 +25,8 @@ with open("model.pkl", "wb") as f:
 # title of the checkbox is 'Show/Hide'
 
 
-st.title("Localy, l'IA à votre service")
-st.markdown("## Estimez votre loyer en quelques clics")
+st.title("LOCALY, l'IA à votre service")
+
 col1, col2, col3, col4 = st.columns([3, 2, 3, 2])
 
 lyon_1 = ['69001', 45.7699, 4.8294]
@@ -51,6 +51,7 @@ with st.sidebar:
     # change the background color of the sidebar
 
     st.sidebar.image('Images/logo_localy-removebg-preview.png', width=200)
+    st.markdown("# Estimez votre loyer")
 
     zone = st.selectbox(
         'Arrondissement',
@@ -71,9 +72,17 @@ with st.sidebar:
             result = make_prediction(
                 list(surface), int(zone), type, str(nb_piece), './model.pkl')
 
-            st.write(result)
         except:
             st.error('Votre recherche ne donne aucun résultat.')
+
+
+try:
+    result_min = f'<span style="color: #7DCEA0;">{math.ceil(result[0])} €</span>'
+    result_max = f'<span style="color: #F1948A">{math.ceil(result[1])}€</span>'
+    st.write(
+        f'### Votre loyer est estimé entre {result_min} et {result_max}', unsafe_allow_html=True)
+except:
+    pass
 
 st.map(geo_lyon[geo_lyon['arrondissement'] == zone],
        zoom=13.5)

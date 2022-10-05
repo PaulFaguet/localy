@@ -51,7 +51,7 @@ with st.sidebar:
     # change the background color of the sidebar
 
     st.sidebar.image('Images/logo_localy-removebg-preview.png', width=200)
-    st.markdown("# Estimez votre loyer")
+    st.markdown("# Estimez votre loyer à Lyon")
 
     zone = st.selectbox(
         'Arrondissement',
@@ -77,10 +77,10 @@ with st.sidebar:
 
 
 try:
-    result_min = f'<span style="color: #7DCEA0;">{math.ceil(result[0])} €</span>'
-    result_max = f'<span style="color: #F1948A">{math.ceil(result[1])}€</span>'
+    result_min = f'<span style="color: #7DCEA0;">{math.ceil(result[0])}€</span>'
+    result_max = f'<span style="color: #F1948A;">{math.ceil(result[1])}€</span>'
     st.write(
-        f'### Votre loyer est estimé entre {result_min} et {result_max}', unsafe_allow_html=True)
+        f'### Votre loyer mensuel est estimé entre {result_min} et {result_max}', unsafe_allow_html=True)
 except:
     pass
 

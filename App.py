@@ -1,33 +1,28 @@
 import pickle
-from pydoc import describe
+import plotly.express as px
 import streamlit as st
 import pandas as pd
 import numpy as np
 import math
+import streamlit.components.v1 as components
+import json
 
 from Data.datasets import obtain_data
 from Function.function import clean
 from Function.app_bis import modelbuild
 from Function.app_bis import make_prediction
 
+st.set_page_config(layout="wide", page_title="LOCALY", page_icon=":house:")
 
 df = obtain_data()
 df = clean(df)
-# print(df.info())
 
-# Export model
 model = modelbuild(df)
 with open("model.pkl", "wb") as f:
     pickle.dump(model, f)
 
 
-# check if the checkbox is checked
-# title of the checkbox is 'Show/Hide'
-
-
 st.title("LOCALY, l'IA à votre service")
-
-col1, col2, col3, col4 = st.columns([3, 2, 3, 2])
 
 lyon_1 = ['69001', 45.7699, 4.8294]
 lyon_2 = ['69002', 45.7608, 4.8357]
@@ -46,12 +41,13 @@ df = pd.DataFrame(
     np.random.randn(1, 1) / [60, 60] + [45.7645, 4.8357],
     columns=['lat', 'lon'])
 
+tab1, tab2 = st.tabs(["Je suis futur locataire", "Je suis futur bailleur"])
 
-with st.sidebar:
-    # change the background color of the sidebar
 
-    #st.sidebar.image('Images/logo_localy-removebg-preview.png', width=200)
-    st.markdown('# Estimez votre loyer à Lyon',
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown('## Estimez votre loyer à Lyon',
                 unsafe_allow_html=True)
 
     zone = st.selectbox(
@@ -59,45 +55,49 @@ with st.sidebar:
         ('69001', '69002', '69003', '69004', '69005', '69006', '69007', '69008', '69009'))
     type = st.radio(
         "Type de logement",
-        ('appartement', 'maison'))
+        ('Appartement', 'Maison'))
 
     surface = st.slider(
         'Surface en m²',
         21, 164, (25, 75), 1)
 
-    nb_piece = st.number_input('Nombre de pièce', 1, 4)
+    nb_piece = st.number_input('Nombre de pièce(s)', 1, 4)
 
-    button = st.button('ESTIMER')
+    button = st.button('ESTIMER MON LOYER')
     if button:
         try:
             result = make_prediction(
-                list(surface), int(zone), type, str(nb_piece), './model.pkl')
+                list(surface), int(zone), type.lower(), str(nb_piece), './model.pkl')
+
+            st.success('Votre recherche donne des résultats.')
 
         except:
             st.error('Votre recherche ne donne aucun résultat.')
 
+with col2:
+    try:
+        result_min = f'<span style="color: #7DCEA0;">{math.ceil(result[0])}€</span>'
+        result_max = f'<span style="color: #F1948A;">{math.ceil(result[1])}€</span>'
 
-try:
-    result_min = f'<span style="color: #7DCEA0;">{math.ceil(result[0])}€</span>'
-    result_max = f'<span style="color: #F1948A;">{math.ceil(result[1])}€</span>'
-    st.write(
-        f'### Votre loyer mensuel est estimé entre {result_min} et {result_max}', unsafe_allow_html=True)
-except:
-    pass
+        st.write(
+            f'### Le loyer mensuel est estimé entre {result_min} et {result_max}', unsafe_allow_html=True)
+    except:
+        pass
 
-st.map(geo_lyon[geo_lyon['arrondissement'] == zone],
-       zoom=13.5)
+    st.map(geo_lyon[geo_lyon['arrondissement'] == zone],
+           zoom=13.5)
 
-# geojson = json.load(open('lyon_geojson.json', 'r'))
-# geojson = geojson[0]["features"]["properties"]["geometry"]["coordinates"]
-# fig = px.choropleth(df,
-#    geojson=geojson,
-#   locations='fips',
-#  color='unemp',
-# color_continuous_scale="Viridis",
-# range_color=(0, 12),
-# scope="usa",
-# labels={'unemp': 'unemployment rate'}
-# )
-# fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
-# fig.show()
+# geojson = json.load(open('lyon.json', 'r'))
+# iterate over the coords and print the first 5
+# for geo in geojson:
+#     polygon = geo['features'][0]['geometry']['coordinates'][0]
+
+#     fig = px.choropleth(df,
+#                         geojson=geojson,
+#                         locations=polygon,
+#                         color_continuous_scale="Viridis",
+#                         range_color=(0, 12),
+#                         scope="europe"
+#                         )
+#     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
+#     fig.show()

@@ -26,5 +26,5 @@ venv\\scripts\\activate
 exécuter l'app depuis le terminal 
 ```streamlit run app.py```
 
-
-
+## Lien Web de l'app
+```https://paulfaguet-localy-app-vrcpu1.streamlitapp.com/```

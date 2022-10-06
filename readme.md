@@ -27,4 +27,5 @@ exécuter l'app depuis le terminal
 ```streamlit run app.py```
 
 ## Lien Web de l'app
-[Localy](https://paulfaguet-localy-app-vrcpu1.streamlitapp.com/)
+
+![qrcode_localy](https://user-images.githubusercontent.com/43534237/194303565-1943237b-a70a-4b00-8099-dc7494329c8c.png)
